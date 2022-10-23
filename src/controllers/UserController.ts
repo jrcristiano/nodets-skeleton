@@ -9,15 +9,15 @@ class UserController {
   async index(req: Request, res: Response) {
     try {
       return res.status(200).json(await UserService.getAll(req));
-    } catch ({ message }) {
-      return res.status(500).json({ message });
+    } catch ({message}) {
+      return res.status(500).json({message});
     }
   }
 
   async store(req: Request, res: Response) {
     try {
       const errors = validationResult(req);
-      if (!errors.isEmpty()) {
+      if (errors.isEmpty() === false) {
         return res.status(400).json({
           message: errors.array()
         });
@@ -28,13 +28,13 @@ class UserController {
 
       return res.status(201).json(await UserService.create(req.body));
     } catch ({message}) {
-      return res.status(500).json({ message });
+      return res.status(500).json({message});
     }
   }
 
   async show(req: Request, res: Response) {
     try {
-      const user = await UserService.findById(req.params.id);
+      const user = await UserService.findById(req.params.id) as IUser;
       if (!user) {
         return res.status(404).json({
           message: `User ${req.params.id} not found!`,
@@ -43,7 +43,7 @@ class UserController {
 
       return res.status(200).json(user);
     } catch ({message}) {
-      return res.status(500).json({ message });
+      return res.status(500).json({message});
     }
   }
 
@@ -66,7 +66,7 @@ class UserController {
         message: `User ${req.params.id} updated successfully.`
       });
     } catch ({message}) {
-      return res.status(500).json({ message });
+      return res.status(500).json({message});
     }
   }
 
@@ -76,8 +76,8 @@ class UserController {
       return res.status(200).json({
         message: `User ${req.params.id} removed successfully.`
       });
-    } catch ({ message }) {
-      return res.status(500).json({ message });
+    } catch ({message}) {
+      return res.status(500).json({message});
     }
   }
 }

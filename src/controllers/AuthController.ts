@@ -43,8 +43,10 @@ class AuthController {
         expiresIn: env.TOKEN_EXPIRES_IN,
       });
 
-    } catch ({ message }) {
-      return res.status(500).json({ message });      
+    } catch ({message}) {
+      return res.status(500).json({
+        message
+      });      
     }
   }
 }
