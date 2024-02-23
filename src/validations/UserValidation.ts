@@ -49,17 +49,12 @@ const login = [
   password,
 ];
 
-const store = [
+const handle = [
   fName,
   lastname,
   email,
   password,
 ];
 
-const update = [
-  fName,
-  lastname,
-  email,
-];
 
-export default {login, store, update};
+export default {login, handle};

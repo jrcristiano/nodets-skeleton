@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import UserService from '../services/UserService';
-import IUser from '../interfaces/IUser';
+import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import env from '../../env';
+import IUser from '../interfaces/IUser';
+import UserService from '../services/UserService';
 
 class AuthController {
   async login(req: Request, res: Response) {
@@ -35,12 +35,12 @@ class AuthController {
       delete user.password;
 
       const token = jwt.sign({user}, env.API_SECRET_TOKEN, {
-        expiresIn: env.TOKEN_EXPIRES_IN,
+        expiresIn: env.API_SECRET_TOKEN,
       });
 
       return res.status(200).json({
         token,
-        expiresIn: env.TOKEN_EXPIRES_IN,
+        expiresIn: env.API_SECRET_TOKEN,
       });
 
     } catch ({message}) {
